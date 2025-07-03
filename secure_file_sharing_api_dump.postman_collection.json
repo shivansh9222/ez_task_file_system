@@ -1,0 +1,215 @@
+{
+  "info": {
+    "name": "Secure File Sharing API",
+    "_postman_id": "secure-file-sharing-api",
+    "description": "Postman collection for testing all endpoints of the secure file-sharing system.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Register CLIENT",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/register/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "register"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"username\": \"clientuser\",\n    \"email\": \"client@example.com\",\n    \"password\": \"clientpass\",\n    \"role\": \"CLIENT\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Register OPS",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/register-ops/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "register-ops"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"username\": \"opsuser\",\n    \"email\": \"ops@example.com\",\n    \"password\": \"opspass\",\n    \"role\": \"OPS\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Verify Email",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/verify-email/<signed_id>/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "verify-email",
+            "<signed_id>"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/token/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "token"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"username\": \"clientuser\",\n    \"password\": \"clientpass\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Refresh Token",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/token/refresh/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "token",
+            "refresh"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"refresh\": \"<refresh_token>\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Upload File (OPS Only)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <ops_access_token>"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/upload/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "upload"
+          ]
+        },
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": ""
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "List Files (CLIENT Only)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <client_access_token>"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/files/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "files"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Download File (CLIENT Only)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <client_access_token>"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/download/<signed_id>/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "download",
+            "<signed_id>"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000"
+    }
+  ]
+}
